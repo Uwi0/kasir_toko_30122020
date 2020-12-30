@@ -49,14 +49,14 @@ public class Kasir extends javax.swing.JFrame {
         tfHargaBarang = new javax.swing.JTextField();
         tfJumlahBarang = new javax.swing.JTextField();
         tfSubTotal = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnTambah = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         tfTotalHarga = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         tfPembayaran = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         tfKembalian = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        btnPrint = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,7 +77,12 @@ public class Kasir extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("tambah");
+        btnTambah.setText("tambah");
+        btnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Total harga");
 
@@ -85,7 +90,7 @@ public class Kasir extends javax.swing.JFrame {
 
         jLabel8.setText("Kembalian");
 
-        jButton2.setText("Print");
+        btnPrint.setText("Print");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,7 +99,7 @@ public class Kasir extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -120,7 +125,7 @@ public class Kasir extends javax.swing.JFrame {
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(tfKembalian))
-                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnTambah, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 124, Short.MAX_VALUE)
@@ -149,7 +154,7 @@ public class Kasir extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(tfSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnTambah)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -163,7 +168,7 @@ public class Kasir extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(tfKembalian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btnPrint)
                 .addContainerGap(53, Short.MAX_VALUE))
         );
 
@@ -177,6 +182,11 @@ public class Kasir extends javax.swing.JFrame {
         subtotal = hargaBarang * jumlahBarang;
         tfSubTotal.setText(subtotal+"");
     }//GEN-LAST:event_tfJumlahBarangKeyReleased
+
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+        totalBiaya = totalBiaya + subtotal;
+        tfTotalHarga.setText(totalBiaya+"");
+    }//GEN-LAST:event_btnTambahActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,8 +222,8 @@ public class Kasir extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnPrint;
+    private javax.swing.JButton btnTambah;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
