@@ -22,9 +22,9 @@ public class Kasir extends javax.swing.JFrame {
     double kembalian = 0.0;
     double subtotal = 0.0;
     
-    ArrayList listNamaItems = new ArrayList<String>();
-    ArrayList listJumlahItems = new ArrayList<String>();
-    ArrayList listHargaItems = new ArrayList<String>();
+    ArrayList listNamaBarang = new ArrayList<String>();
+    ArrayList listJumlahBarang = new ArrayList<String>();
+    ArrayList listHargaBarang = new ArrayList<String>();
     ArrayList listSubtotal = new ArrayList<String>();
     
     public Kasir() {
@@ -182,22 +182,36 @@ public class Kasir extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfJumlahBarangKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfJumlahBarangKeyReleased
+        
         double hargaBarang = Double.parseDouble(tfHargaBarang.getText());
         double jumlahBarang = Double.parseDouble(tfJumlahBarang.getText());
         
         subtotal = hargaBarang * jumlahBarang;
         tfSubTotal.setText(subtotal+"");
+        
     }//GEN-LAST:event_tfJumlahBarangKeyReleased
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+        
+        String namaBarang = tfNamaBarang.getText();
+        String hargaBarang = tfHargaBarang.getText();
+        String jumlahBarang = tfJumlahBarang.getText();
+        
+        listNamaBarang.add(namaBarang);
+        listHargaBarang.add(hargaBarang);
+        listJumlahBarang.add(jumlahBarang);
+        
         totalBiaya = totalBiaya + subtotal;
         tfTotalHarga.setText(totalBiaya+"");
+        
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void tfPembayaranKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPembayaranKeyReleased
+        
         double uangTunai = Double.parseDouble(tfPembayaran.getText());
         kembalian = uangTunai - totalBiaya;
         tfKembalian.setText(kembalian+"");
+        
     }//GEN-LAST:event_tfPembayaranKeyReleased
 
     /**
