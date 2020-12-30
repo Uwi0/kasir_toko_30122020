@@ -5,6 +5,15 @@
  */
 package kasirtoko;
 
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.ArrayList;
 
 /**
@@ -97,6 +106,11 @@ public class Kasir extends javax.swing.JFrame {
         jLabel8.setText("Kembalian");
 
         btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -214,6 +228,98 @@ public class Kasir extends javax.swing.JFrame {
         
     }//GEN-LAST:event_tfPembayaranKeyReleased
 
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        PrinterJob printerJob = PrinterJob.getPrinterJob();
+        printerJob.setPrintable(new PrintStruk(), getPageFormat(printerJob));
+        
+        try{
+            printerJob.print();
+        }catch(PrinterException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnPrintActionPerformed
+    
+    
+    public PageFormat getPageFormat(PrinterJob printerJob){
+        PageFormat pageFormat = printerJob.defaultPage();
+        Paper paper = pageFormat.getPaper();
+        
+        double middleHeight = 8.0;
+        double headerHeight = 2.0;
+        double footerHeight = 2.0;
+        double width = convert_CM_TO_PPI(8);
+        double height = 
+                convert_CM_TO_PPI(headerHeight + middleHeight + footerHeight);
+        paper.setSize(width, height);
+        paper.setImageableArea(
+                0,
+                10,
+                width,
+                height - convert_CM_TO_PPI(1)
+        );
+        
+        pageFormat.setOrientation(PageFormat.PORTRAIT); 
+        pageFormat.setPaper(paper);
+        
+        return pageFormat;
+    }
+    
+    protected static double convert_CM_TO_PPI(double cm){
+        return TOPPI(cm * 0.393600787);
+    }
+    
+    protected static double TOPPI(double inch){
+        return inch * 72d;
+    }
+    
+    public class PrintStruk implements Printable{
+
+        @Override
+        public int print(
+                Graphics graphics,
+                PageFormat pageFormat,
+                int pageIndex
+        ) throws PrinterException {
+            int result = NO_SUCH_PAGE;
+            if(pageIndex == 0){
+                
+                Graphics2D graphics2d = (Graphics2D) graphics;
+                double width = pageFormat.getImageableWidth();
+                graphics2d.translate(
+                        (int)pageFormat.getImageableX(),
+                        (int)pageFormat.getImageableY()
+                );
+                
+                FontMetrics metrics = graphics2d.getFontMetrics(
+                        new Font("Arial",Font.BOLD,7));
+                
+                int idLength = metrics.stringWidth("000");
+                int amtLength = metrics.stringWidth("000000");
+                int qtyLength = metrics.stringWidth("00000");
+                int priceLength = metrics.stringWidth("000000");
+                int prodLength = 
+                        (int)width - idLength 
+                        - amtLength - qtyLength - priceLength-17;
+                
+                try{
+                    int y = 20;
+                    int yShift = 10;
+                    int headerRectangleHeight = 15;
+                    int headerRectangleHeighta = 40;
+                    graphics2d.setFont(new Font("Monospaced", Font.PLAIN, 9));
+                    graphics2d.drawString("-------------------------------------",12,y);y+=yShift;
+                    graphics2d.drawString("      Restaurant Bill Receipt        ",12,y);y+=yShift;
+                    graphics2d.drawString("-------------------------------------",12,y);y+=headerRectangleHeight;
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                
+                result = PAGE_EXISTS;
+            }
+        return result;
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
