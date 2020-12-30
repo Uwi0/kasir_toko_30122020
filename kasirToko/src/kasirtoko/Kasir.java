@@ -88,6 +88,12 @@ public class Kasir extends javax.swing.JFrame {
 
         jLabel7.setText("Pembayaran");
 
+        tfPembayaran.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfPembayaranKeyReleased(evt);
+            }
+        });
+
         jLabel8.setText("Kembalian");
 
         btnPrint.setText("Print");
@@ -187,6 +193,12 @@ public class Kasir extends javax.swing.JFrame {
         totalBiaya = totalBiaya + subtotal;
         tfTotalHarga.setText(totalBiaya+"");
     }//GEN-LAST:event_btnTambahActionPerformed
+
+    private void tfPembayaranKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPembayaranKeyReleased
+        double uangTunai = Double.parseDouble(tfPembayaran.getText());
+        kembalian = uangTunai - totalBiaya;
+        tfKembalian.setText(kembalian+"");
+    }//GEN-LAST:event_tfPembayaranKeyReleased
 
     /**
      * @param args the command line arguments
