@@ -20,11 +20,12 @@ public class Kasir extends javax.swing.JFrame {
     double totalBiaya = 0.0;
     double tunai = 0.0;
     double kembalian = 0.0;
+    double subtotal = 0.0;
     
-    ArrayList NamaItems = new ArrayList<String>();
-    ArrayList JumlahItems = new ArrayList<String>();
-    ArrayList hargaItems = new ArrayList<String>();
-    ArrayList subtotal = new ArrayList<String>();
+    ArrayList listNamaItems = new ArrayList<String>();
+    ArrayList listJumlahItems = new ArrayList<String>();
+    ArrayList listHargaItems = new ArrayList<String>();
+    ArrayList listSubtotal = new ArrayList<String>();
     
     public Kasir() {
         initComponents();
@@ -70,6 +71,12 @@ public class Kasir extends javax.swing.JFrame {
 
         jLabel5.setText("Sub total");
 
+        tfJumlahBarang.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfJumlahBarangKeyReleased(evt);
+            }
+        });
+
         jButton1.setText("tambah");
 
         jLabel6.setText("Total harga");
@@ -85,11 +92,11 @@ public class Kasir extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -102,23 +109,18 @@ public class Kasir extends javax.swing.JFrame {
                                 .addComponent(tfJumlahBarang)
                                 .addComponent(tfSubTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)))
                         .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(tfTotalHarga))
                         .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(tfPembayaran))
                         .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(tfKembalian))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 124, Short.MAX_VALUE)
@@ -167,6 +169,14 @@ public class Kasir extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tfJumlahBarangKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfJumlahBarangKeyReleased
+        double hargaBarang = Double.parseDouble(tfHargaBarang.getText());
+        double jumlahBarang = Double.parseDouble(tfJumlahBarang.getText());
+        
+        subtotal = hargaBarang * jumlahBarang;
+        tfSubTotal.setText(subtotal+"");
+    }//GEN-LAST:event_tfJumlahBarangKeyReleased
 
     /**
      * @param args the command line arguments
