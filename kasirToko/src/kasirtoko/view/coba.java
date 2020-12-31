@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 package kasirtoko.view;
-import database.Connection;
+import database.Koneksi;
 /**
  *
  * @author Asus
  */
 public class coba {
-    Connection con;
+    Koneksi con;
 }

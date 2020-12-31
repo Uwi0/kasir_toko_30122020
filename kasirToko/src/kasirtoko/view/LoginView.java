@@ -5,7 +5,7 @@
  */
 package kasirtoko.view;
 
-import database.Connection;
+import database.Koneksi;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +20,7 @@ public class LoginView extends javax.swing.JFrame {
      */
     
     ResultSet resultSet;
-    Connection connection;
+    Koneksi connection;
     
     String username;
     String passowrd;
@@ -107,11 +107,11 @@ public class LoginView extends javax.swing.JFrame {
         }else if(username.isEmpty() && password.isEmpty()){
             JOptionPane.showMessageDialog(this, "Username dan passowrd masih kosong");
         }else{
-            try{
-                resultSet = connection.querySellect("");
-            }catch(SQLException e){
-                e.printStackTrace();
-            }
+//            try{
+//                resultSet = connection.querySellect("");
+//            }catch(SQLException e){
+//                e.printStackTrace();
+//            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
