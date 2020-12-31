@@ -9,6 +9,7 @@ import database.Koneksi;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import kasirtoko.view.Admin;
 /**
  *
  * @author Asus
@@ -22,8 +23,8 @@ public class LoginView extends javax.swing.JFrame {
     ResultSet resultSet;
     Koneksi connection;
     
-    String username;
-    String passowrd;
+    String nama;
+    String password;
     String akses;
     
     public LoginView() {
@@ -97,21 +98,43 @@ public class LoginView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String username = tfUserName.getText();
-        String password = jpPassword.getText();
+        String textUsername = tfUserName.getText();
+        String textPassword = jpPassword.getText();
         
-        if(username.isEmpty()){
+        if(textUsername.isEmpty()){
             JOptionPane.showMessageDialog(this,"tolong masukkan username anda");
-        }else if(password.isEmpty()){
+        }else if(textPassword.isEmpty()){
             JOptionPane.showMessageDialog(this, "Tolong massukkan password anda");
-        }else if(username.isEmpty() && password.isEmpty()){
+        }else if(textUsername.isEmpty() && textPassword.isEmpty()){
             JOptionPane.showMessageDialog(this, "Username dan passowrd masih kosong");
         }else{
-//            try{
-//                resultSet = connection.querySellect("");
-//            }catch(SQLException e){
-//                e.printStackTrace();
-//            }
+            try{
+                resultSet = connection.querySelect("user", "nama = '" 
+                        + textUsername + "' ANd password = '" + textPassword + "'");
+                while(resultSet.next()){
+                    nama = resultSet.getString("nama");
+                    password = resultSet.getString("password");
+                    akses = resultSet.getString("akses");
+                }
+            }catch(SQLException e){
+                System.out.println("Error ketika login: " + e.getMessage());
+            }
+            
+            
+            if(nama == null && password == null){
+                JOptionPane.showMessageDialog(this," acount anda belum terdaftar");
+            }else{
+                if(akses.equals("Admin")){
+                    Admin admin = new Admin();
+                    admin.setVisible(true);
+                    this.dispose();
+                }else{
+                    PetugasKasir kasir = new PetugasKasir();
+                    kasir.setVisible(true);
+                    this.dispose();
+                }
+            }
+            
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
