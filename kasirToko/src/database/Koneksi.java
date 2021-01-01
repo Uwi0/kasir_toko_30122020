@@ -82,7 +82,7 @@ public class Koneksi {
     }
     
     //fungsi untuk eksekusi query select dengan kolom spesifik
-    public ResultSet querySelect(String[] nameColumn, String nameTable){
+    public ResultSet querySellect(String[] nameColumn, String nameTable){
         query = "SELECT ";
         for(int i = 0; i < nameColumn.length; i++){
             query += nameColumn[i];
