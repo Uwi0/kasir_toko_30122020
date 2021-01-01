@@ -27,31 +27,140 @@ public class Admin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        btnDaftarBarang = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        BtnStokMasuk = new javax.swing.JButton();
+        btnPenjualan = new javax.swing.JButton();
+        btnRiwayatPenjualan = new javax.swing.JButton();
+        btnSupplier = new javax.swing.JButton();
+        btnDaftarKaryawan = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("ini admin");
+        btnDaftarBarang.setText("Daftar Barang");
+        btnDaftarBarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDaftarBarangActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Menu Utama");
+
+        BtnStokMasuk.setText("Stok masuk");
+        BtnStokMasuk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnStokMasukActionPerformed(evt);
+            }
+        });
+
+        btnPenjualan.setText("Penjualan");
+        btnPenjualan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPenjualanActionPerformed(evt);
+            }
+        });
+
+        btnRiwayatPenjualan.setText("Riwayat Penjualan");
+        btnRiwayatPenjualan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRiwayatPenjualanActionPerformed(evt);
+            }
+        });
+
+        btnSupplier.setText("Suplier");
+        btnSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSupplierActionPerformed(evt);
+            }
+        });
+
+        btnDaftarKaryawan.setText("Data karyawan");
+        btnDaftarKaryawan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDaftarKaryawanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(143, 143, 143)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(206, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnDaftarBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BtnStokMasuk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnPenjualan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(88, 88, 88)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnRiwayatPenjualan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSupplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDaftarKaryawan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(160, 160, 160)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(123, 123, 123)
-                .addComponent(jLabel1)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addComponent(jLabel2)
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDaftarBarang)
+                    .addComponent(btnRiwayatPenjualan))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BtnStokMasuk)
+                    .addComponent(btnSupplier))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPenjualan)
+                    .addComponent(btnDaftarKaryawan))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnDaftarBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDaftarBarangActionPerformed
+       DaftarBarang daftarBarang = new DaftarBarang();
+       daftarBarang.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_btnDaftarBarangActionPerformed
+
+    private void BtnStokMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnStokMasukActionPerformed
+        StokMasuk stockMasuk = new StokMasuk();
+        stockMasuk.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnStokMasukActionPerformed
+
+    private void btnRiwayatPenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRiwayatPenjualanActionPerformed
+        RiwayatPenjualan riwayatPenjualan = new RiwayatPenjualan();
+        riwayatPenjualan.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRiwayatPenjualanActionPerformed
+
+    private void btnPenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPenjualanActionPerformed
+        Penjualan penjualan = new Penjualan();
+        penjualan.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnPenjualanActionPerformed
+
+    private void btnSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupplierActionPerformed
+        Supplier supplier = new Supplier();
+        supplier.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSupplierActionPerformed
+
+    private void btnDaftarKaryawanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDaftarKaryawanActionPerformed
+        DaftarKaryawan daftarKaryawan = new DaftarKaryawan();
+        daftarKaryawan.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnDaftarKaryawanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -89,6 +198,12 @@ public class Admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton BtnStokMasuk;
+    private javax.swing.JButton btnDaftarBarang;
+    private javax.swing.JButton btnDaftarKaryawan;
+    private javax.swing.JButton btnPenjualan;
+    private javax.swing.JButton btnRiwayatPenjualan;
+    private javax.swing.JButton btnSupplier;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
