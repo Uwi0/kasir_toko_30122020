@@ -5,11 +5,7 @@
  */
 package database;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.ResultSet;
+import java.sql.*;
 
 /**
  *
@@ -26,12 +22,14 @@ public class Koneksi {
     
     public Connection connectionDatabase(){
         try{
+            
             Class.forName("com.mysql.jdbc.Driver");
-            connection =(Connection) DriverManager.getConnection(
+            connection = DriverManager.getConnection(
                     "jdbc:mysql:///kasir_toko_prototype",
                     "root",
                     ""
             );
+            
         }catch(ClassNotFoundException | SQLException e){
             System.out.println("Error Connection Database : " + e.getMessage());
         }

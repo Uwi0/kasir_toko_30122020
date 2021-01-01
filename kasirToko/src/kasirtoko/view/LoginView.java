@@ -9,7 +9,6 @@ import database.Koneksi;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import kasirtoko.view.Admin;
 /**
  *
  * @author Asus
@@ -28,6 +27,7 @@ public class LoginView extends javax.swing.JFrame {
     String akses;
     
     public LoginView() {
+        connection = new Koneksi();
         initComponents();
     }
 
@@ -43,7 +43,7 @@ public class LoginView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         tfUserName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnLogin = new javax.swing.JButton();
         jpPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -52,10 +52,10 @@ public class LoginView extends javax.swing.JFrame {
 
         jLabel3.setText("Password");
 
-        jButton1.setText("LogIn");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnLogin.setText("LogIn");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnLoginActionPerformed(evt);
             }
         });
 
@@ -75,7 +75,7 @@ public class LoginView extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(177, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnLogin)
                 .addGap(166, 166, 166))
         );
         layout.setVerticalGroup(
@@ -90,33 +90,34 @@ public class LoginView extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jpPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btnLogin)
                 .addContainerGap(141, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String textUsername = tfUserName.getText();
-        String textPassword = jpPassword.getText();
-        
-        if(textUsername.isEmpty()){
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+
+        if(tfUserName.getText().equals("")){
             JOptionPane.showMessageDialog(this,"tolong masukkan username anda");
-        }else if(textPassword.isEmpty()){
+        }else if(jpPassword.getText().equals("")){
             JOptionPane.showMessageDialog(this, "Tolong massukkan password anda");
-        }else if(textUsername.isEmpty() && textPassword.isEmpty()){
+        }else if(tfUserName.getText().equals("") && jpPassword.getText().equals("")){
             JOptionPane.showMessageDialog(this, "Username dan passowrd masih kosong");
         }else{
             try{
-                resultSet = connection.querySelect("user", "nama = '" 
-                        + textUsername + "' ANd password = '" + textPassword + "'");
+                
+                System.out.println(tfUserName.getText() + jpPassword.getText());
+                resultSet = connection.querySelect("user", "nama = '" + tfUserName.getText() + "' AND password = '" + jpPassword.getText() + "'");
+
                 while(resultSet.next()){
                     nama = resultSet.getString("nama");
                     password = resultSet.getString("password");
                     akses = resultSet.getString("akses");
                 }
-            }catch(SQLException e){
+                
+            }catch(Exception e){
                 System.out.println("Error ketika login: " + e.getMessage());
             }
             
@@ -136,7 +137,7 @@ public class LoginView extends javax.swing.JFrame {
             }
             
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,7 +173,7 @@ public class LoginView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPasswordField jpPassword;
