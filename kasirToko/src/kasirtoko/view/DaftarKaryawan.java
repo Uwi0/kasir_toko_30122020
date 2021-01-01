@@ -24,6 +24,7 @@ public class DaftarKaryawan extends javax.swing.JFrame {
     public DaftarKaryawan() {
         connection = new Koneksi();
         initComponents();
+        getTable();
     }
     
     public final void getTable(){
@@ -89,6 +90,11 @@ public class DaftarKaryawan extends javax.swing.JFrame {
                 "Nama", "Password", "Akses", "Alamat", "email", "no hp"
             }
         ));
+        tblUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblUserMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblUser);
 
         btnAdd.setText("Add");
@@ -126,7 +132,7 @@ public class DaftarKaryawan extends javax.swing.JFrame {
             }
         });
 
-        cbxAkses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxAkses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Akses", "Admin", "Kasir" }));
 
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -237,12 +243,38 @@ public class DaftarKaryawan extends javax.swing.JFrame {
     }//GEN-LAST:event_tfNamaActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
+        String search = tfSearch.getText();
+        
+        if(search.isEmpty()){
+            JOptionPane.showMessageDialog(this, "anda belum mengginput apapun");
+        }else{
+            
+        }
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         refreshAll();
     }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void tblUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUserMouseClicked
+       
+        int baris = tblUser.getSelectedRow();
+        
+        String nama = String.valueOf(tblUser.getValueAt(baris, 1));
+        String password = String.valueOf(tblUser.getValueAt(baris, 2));
+        String akses = String.valueOf(tblUser.getValueAt(baris, 3));
+        String alamat = String.valueOf(tblUser.getValueAt(baris, 4));
+        String email = String.valueOf(tblUser.getValueAt(baris, 5));
+        String noHp = String.valueOf(tblUser.getValueAt(baris, 6));
+        
+        tfNama.setText(nama);
+        tfPassword.setText(password);
+        cbxAkses.setSelectedItem(akses);
+        taAlamat.setText(alamat);
+        tfEmail.setText(email);
+        tfNoHp.setText(noHp);
+        
+    }//GEN-LAST:event_tblUserMouseClicked
 
     /**
      * @param args the command line arguments
