@@ -40,6 +40,7 @@ public class Koneksi {
     public Connection closeDatabase(){
         try{
             connection.close();
+            statement.close();
         }catch(SQLException e){
             System.out.println("Error Close Database : " + e.getMessage());
         }
@@ -76,7 +77,7 @@ public class Koneksi {
     }
     
     //overload fungsi untuk eksekusi query select semua kolom dengan where
-    public ResultSet querySelect(String nameTable, String condition){
+    public ResultSet querySellect(String nameTable, String condition){
         query = "SELECT * FROM " + nameTable + " WHERE " + condition;
         System.out.println(query);
         return this.eksekusiQuery(query);
@@ -148,7 +149,7 @@ public class Koneksi {
         }
         
         query += " WHERE " + condition;
-        System.out.println(query);
+
         return this.eksekusiUpdate(query);
     }
     

@@ -34,7 +34,6 @@ public class DaftarKaryawan extends javax.swing.JFrame {
         tblUser.setModel(new SetTabel(resultSet));
     }
     
-    
     public void refreshAll(){
         tfNama.setText(null);
         tfPassword.setText(null);
@@ -195,7 +194,7 @@ public class DaftarKaryawan extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(46, 46, 46)
                                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
@@ -224,16 +223,16 @@ public class DaftarKaryawan extends javax.swing.JFrame {
                     .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearch))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(tfNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5)
-                            .addComponent(tfNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(tfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
@@ -241,12 +240,12 @@ public class DaftarKaryawan extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(tfNoHp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(tfNoHp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -263,7 +262,10 @@ public class DaftarKaryawan extends javax.swing.JFrame {
         if(search.isEmpty()){
             JOptionPane.showMessageDialog(this, "anda belum mengginput apapun");
         }else{
-            
+            connection.closeDatabase();
+            resultSet = connection.querySellect("user",
+                    "nama LIKE '%" + search + "%'");
+            tblUser.setModel(new SetTabel(resultSet)); 
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
@@ -292,7 +294,6 @@ public class DaftarKaryawan extends javax.swing.JFrame {
     }//GEN-LAST:event_tblUserMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-       //error insert email harus angka
        
         String nama = tfNama.getText();
         String password = tfPassword.getText();
@@ -300,9 +301,9 @@ public class DaftarKaryawan extends javax.swing.JFrame {
         String email = tfEmail.getText();
         String noHp = tfNoHp.getText();
         
-        if (nama.isEmpty() || password.isEmpty() ||
-                cbxAkses.getSelectedItem().equals("Akses") || alamat.isEmpty()
-                || email.isEmpty() || noHp.isEmpty()) {
+        if (nama.isEmpty() && password.isEmpty() &&
+                cbxAkses.getSelectedItem().equals("Akses") && alamat.isEmpty()
+                && email.isEmpty() && noHp.isEmpty()) {
             
             JOptionPane.showMessageDialog(this, "Maaf data masih belum lengkap");
             
@@ -312,6 +313,7 @@ public class DaftarKaryawan extends javax.swing.JFrame {
             String[] value = {nama, password,
                 cbxAkses.getSelectedItem().toString(), alamat, email, noHp};
             connection.queryInsert("user", column, value);
+            connection.closeDatabase();
             getTable();
             refreshAll();
         }
@@ -332,7 +334,7 @@ public class DaftarKaryawan extends javax.swing.JFrame {
         }else{
             return;
         }
-        
+        connection.closeDatabase();
         getTable();
         JOptionPane.showMessageDialog(this,"Data Berhasil di hapus");
         refreshAll();
@@ -361,7 +363,7 @@ public class DaftarKaryawan extends javax.swing.JFrame {
                 .valueOf(tblUser.getValueAt(tblUser.getSelectedRow(), 0));
           
             connection.queryUppdate("user",column,value,"id_user = " + id);
-            
+            connection.closeDatabase();
             getTable();
             JOptionPane.showMessageDialog(this, "Data berhasil Di Ubah");
             refreshAll();

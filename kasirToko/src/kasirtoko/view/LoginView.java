@@ -109,7 +109,7 @@ public class LoginView extends javax.swing.JFrame {
             try{
                 
                 System.out.println(tfUserName.getText() + jpPassword.getText());
-                resultSet = connection.querySelect("user", "nama = '" + tfUserName.getText() + "' AND password = '" + jpPassword.getText() + "'");
+                resultSet = connection.querySellect("user", "nama = '" + tfUserName.getText() + "' AND password = '" + jpPassword.getText() + "'");
 
                 while(resultSet.next()){
                     nama = resultSet.getString("nama");
