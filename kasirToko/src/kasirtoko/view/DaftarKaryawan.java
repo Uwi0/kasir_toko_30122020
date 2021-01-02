@@ -105,6 +105,11 @@ public class DaftarKaryawan extends javax.swing.JFrame {
         });
 
         btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -288,11 +293,12 @@ public class DaftarKaryawan extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
        //error insert email harus angka
+       
         String nama = tfNama.getText();
         String password = tfPassword.getText();
         String alamat = taAlamat.getText();
         String email = tfEmail.getText();
-        String noHp = tfEmail.getText();
+        String noHp = tfNoHp.getText();
         
         if (nama.isEmpty() || password.isEmpty() ||
                 cbxAkses.getSelectedItem().equals("Akses") || alamat.isEmpty()
@@ -332,6 +338,36 @@ public class DaftarKaryawan extends javax.swing.JFrame {
         refreshAll();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        
+        String nama = tfNama.getText();
+        String password = tfPassword.getText();
+        String alamat = taAlamat.getText();
+        String email = tfEmail.getText();
+        String noHp = tfNoHp.getText();
+        
+         if (nama.isEmpty() || password.isEmpty() ||
+                cbxAkses.getSelectedItem().equals("Akses") || alamat.isEmpty()
+                || email.isEmpty() || noHp.isEmpty()) {
+            
+            JOptionPane.showMessageDialog(this, "Maaf data masih belum lengkap");
+            
+        }else{
+             
+            String[] column = {"nama", "password", "akses","alamat", "email", "no_hp"};
+            String[] value = {nama, password,
+                cbxAkses.getSelectedItem().toString(), alamat, email, noHp};
+            String id = String
+                .valueOf(tblUser.getValueAt(tblUser.getSelectedRow(), 0));
+          
+            connection.queryUppdate("user",column,value,"id_user = " + id);
+            
+            getTable();
+            JOptionPane.showMessageDialog(this, "Data berhasil Di Ubah");
+            refreshAll();
+         }
+    }//GEN-LAST:event_btnEditActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -348,15 +384,11 @@ public class DaftarKaryawan extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DaftarKaryawan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DaftarKaryawan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DaftarKaryawan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DaftarKaryawan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */

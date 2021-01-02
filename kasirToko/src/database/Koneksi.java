@@ -6,6 +6,7 @@
 package database;
 
 import java.sql.*;
+import java.util.concurrent.locks.Condition;
 
 /**
  *
@@ -130,7 +131,34 @@ public class Koneksi {
          return this.eksekusiUpdate(query);
     }
     
-    //fungsi eksekusi query delete
+    //fungsi eksekusi query update
+    public String queryUppdate(
+            String nameTable,
+            String[] nameColumn,
+            String[] value,
+            String condition
+    ){
+        query = "UPDATE " + nameTable + " SET ";
+        
+        for(int i = 0; i < nameColumn.length; i++){
+            query += nameColumn[i] + " = '" + value[i] + "'";
+            if(i < nameColumn.length - 1){
+                query += ","; 
+            }
+        }
+        
+        query += " WHERE " + condition;
+        System.out.println(query);
+        return this.eksekusiUpdate(query);
+    }
+    
+    //fungsi query dellete
+    public String queryDelete(String nameTable){
+        query = "DELETE FROM" + nameTable;
+        return this.eksekusiUpdate(query);
+    }
+    
+    //fungsi eksekusi query delete dengan where
     public String queryDelete(String nameTable, String value){
         query = "DELETE FROM " + nameTable + " WHERE " + value;
         return this.eksekusiUpdate(query);
