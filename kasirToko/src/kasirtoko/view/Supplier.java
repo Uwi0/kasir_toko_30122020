@@ -27,7 +27,6 @@ public class Supplier extends javax.swing.JFrame {
     }
     
     public final void getTable(){
-//      connection.closeDatabase();
       String[] namaKolom = {"id_supplier", "nama",
           "alamat", "no_hp", "keterangan"};
       resultSet = connection.querySellect(namaKolom, "supplier");
@@ -57,7 +56,7 @@ public class Supplier extends javax.swing.JFrame {
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        tfSearch = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         tfNama = new javax.swing.JTextField();
@@ -85,6 +84,11 @@ public class Supplier extends javax.swing.JFrame {
                 "id_suplier", "Nama", "Alamat", "no_hp", "Keterangan"
             }
         ));
+        tblSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSupplierMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblSupplier);
 
         btnAdd.setText("Add");
@@ -102,6 +106,11 @@ public class Supplier extends javax.swing.JFrame {
         });
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnRefresh.setText("Refresh");
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
@@ -111,6 +120,11 @@ public class Supplier extends javax.swing.JFrame {
         });
 
         jButton5.setText("Search");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Nama");
 
@@ -152,7 +166,7 @@ public class Supplier extends javax.swing.JFrame {
                                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(tfNama, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(12, 12, 12)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(layout.createSequentialGroup()
@@ -192,7 +206,7 @@ public class Supplier extends javax.swing.JFrame {
                     .addComponent(btnRefresh))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -215,17 +229,43 @@ public class Supplier extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEditActionPerformed
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+       
        String nama = tfNama.getText();
        String alamat = taAlamat.getText();
        String noHp = tfNoHp.getText();
        String keterangan = taKeterangan.getText();
        
-       if(nama.isEmpty() && alamat.isEmpty() 
-               && noHp.isEmpty() && keterangan.isEmpty()){
+       if(noHp.isEmpty() 
+               || nama.isEmpty() || alamat.isEmpty() || keterangan.isEmpty()){
+           
+           JOptionPane.showMessageDialog(this, "Data masih belum lengkap");
+           
+       }else{
+           
+           int baris = tblSupplier.getSelectedRow();
+           int kolom = 0;
+           String[] column = {"nama", "alamat", "no_hp", "keterangan"};
+           String[] value = {nama, alamat, noHp, keterangan};
+           String id = String.valueOf(tblSupplier.getValueAt(baris, kolom));
+           
+           connection.queryUppdate("supplier",column,value,"id_supplier = " + id);
+           connection.closeDatabase();
+           getTable();
+           refreshAll();
+           
+       }
+       
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+       
+       String nama = tfNama.getText();
+       String alamat = taAlamat.getText();
+       String noHp = tfNoHp.getText();
+       String keterangan = taKeterangan.getText();
+       
+       if(noHp.isEmpty() 
+               || nama.isEmpty() || alamat.isEmpty() || keterangan.isEmpty()){
            
            JOptionPane.showMessageDialog(this, "Data masih belum lengkap");
            
@@ -243,6 +283,64 @@ public class Supplier extends javax.swing.JFrame {
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         refreshAll();
     }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void tblSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSupplierMouseClicked
+        int baris = tblSupplier.getSelectedRow();
+        
+        String nama = String.valueOf(tblSupplier.getValueAt(baris, 1));
+        String alamat = String.valueOf(tblSupplier.getValueAt(baris, 2));
+        String noHp = String.valueOf(tblSupplier.getValueAt(baris,3));
+        String keterangan = String.valueOf(tblSupplier.getValueAt(baris, 4));
+        
+        tfNama.setText(nama);
+        taAlamat.setText(alamat);
+        tfNoHp.setText(noHp);
+        taKeterangan.setText(keterangan);
+    }//GEN-LAST:event_tblSupplierMouseClicked
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        
+        int baris = tblSupplier.getSelectedRow();
+        int kolom = 0;
+        String id = String.valueOf(tblSupplier.getValueAt(baris, kolom));
+        
+        if(JOptionPane.showConfirmDialog(
+                this,
+                "Apakah anda yakin ingin menghapus data ini",
+                "Peringatan!!!",
+                JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION){
+            
+             connection.queryDelete("supplier", "id_supplier = " + id);
+            
+        }else{
+            
+            return;
+            
+        }
+        
+        connection.closeDatabase();
+        getTable();
+        JOptionPane.showMessageDialog(this,"Data Berhasil di hapus");
+        refreshAll();
+        
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+       
+       String search = tfSearch.getText();
+       
+       if(search.isEmpty()){
+           JOptionPane.showMessageDialog(
+                   this,
+                   "tolong masukkan apa yang ingin anda cari"
+           );
+       }else{
+           connection.closeDatabase();
+           resultSet = connection.querySellect("supplier",
+                    "nama LIKE '%" + search + "%'");
+            tblSupplier.setModel(new SetTabel(resultSet)); 
+       }
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -272,10 +370,8 @@ public class Supplier extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Supplier().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Supplier().setVisible(true);
         });
     }
 
@@ -293,11 +389,11 @@ public class Supplier extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextArea taAlamat;
     private javax.swing.JTextArea taKeterangan;
     private javax.swing.JTable tblSupplier;
     private javax.swing.JTextField tfNama;
     private javax.swing.JTextField tfNoHp;
+    private javax.swing.JTextField tfSearch;
     // End of variables declaration//GEN-END:variables
 }

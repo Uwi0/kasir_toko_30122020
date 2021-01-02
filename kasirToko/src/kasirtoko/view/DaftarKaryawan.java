@@ -301,9 +301,9 @@ public class DaftarKaryawan extends javax.swing.JFrame {
         String email = tfEmail.getText();
         String noHp = tfNoHp.getText();
         
-        if (nama.isEmpty() && password.isEmpty() &&
-                cbxAkses.getSelectedItem().equals("Akses") && alamat.isEmpty()
-                && email.isEmpty() && noHp.isEmpty()) {
+        if (nama.isEmpty() || password.isEmpty() ||
+                cbxAkses.getSelectedItem().equals("Akses") || alamat.isEmpty()
+                || email.isEmpty() || noHp.isEmpty()) {
             
             JOptionPane.showMessageDialog(this, "Maaf data masih belum lengkap");
             
