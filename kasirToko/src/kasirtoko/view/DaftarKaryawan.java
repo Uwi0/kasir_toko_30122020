@@ -98,10 +98,20 @@ public class DaftarKaryawan extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblUser);
 
         btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnEdit.setText("Edit");
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnRefresh.setText("Refresh");
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
@@ -276,6 +286,52 @@ public class DaftarKaryawan extends javax.swing.JFrame {
         
     }//GEN-LAST:event_tblUserMouseClicked
 
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+       //error insert email harus angka
+        String nama = tfNama.getText();
+        String password = tfPassword.getText();
+        String alamat = taAlamat.getText();
+        String email = tfEmail.getText();
+        String noHp = tfEmail.getText();
+        
+        if (nama.isEmpty() || password.isEmpty() ||
+                cbxAkses.getSelectedItem().equals("Akses") || alamat.isEmpty()
+                || email.isEmpty() || noHp.isEmpty()) {
+            
+            JOptionPane.showMessageDialog(this, "Maaf data masih belum lengkap");
+            
+        }else{
+            String[] column = {"nama", "password", "akses",
+                "alamat", "email", "no_hp"};
+            String[] value = {nama, password,
+                cbxAkses.getSelectedItem().toString(), alamat, email, noHp};
+            connection.queryInsert("user", column, value);
+            getTable();
+            refreshAll();
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        String id = String
+                .valueOf(tblUser.getValueAt(tblUser.getSelectedRow(), 0));
+        
+        if(JOptionPane.showConfirmDialog(
+                this,
+                "Apakah anda yakin ingin menghapus data ini",
+                "Peringatan!!!",
+                JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION){
+            
+            connection.queryDelete("user", "id_user = " + id);
+            
+        }else{
+            return;
+        }
+        
+        getTable();
+        JOptionPane.showMessageDialog(this,"Data Berhasil di hapus");
+        refreshAll();
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -304,10 +360,8 @@ public class DaftarKaryawan extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DaftarKaryawan().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new DaftarKaryawan().setVisible(true);
         });
     }
 

@@ -131,8 +131,8 @@ public class Koneksi {
     }
     
     //fungsi eksekusi query delete
-    public String queryDelete(String nameTable){
-        query = "DELETE FROM " + nameTable;
+    public String queryDelete(String nameTable, String value){
+        query = "DELETE FROM " + nameTable + " WHERE " + value;
         return this.eksekusiUpdate(query);
     }
 }
